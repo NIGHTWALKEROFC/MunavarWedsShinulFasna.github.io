@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RSVP Admin — Munavar &amp; Shinul Fasna</title>
+<title>NIGHTWALKER'S Dashboard — Munavar &amp; Shinul Fasna</title>
 <meta name="robots" content="noindex, nofollow">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -74,8 +74,11 @@
 <div id="dash-screen">
   <div class="wrap">
     <header class="dash-header">
-      <h1>RSVP Dashboard</h1>
-      <button class="signout-btn" onclick="doSignOut()">Sign Out</button>
+      <h1>NIGHTWALKER'S Dashboard</h1>
+      <div style="display:flex;gap:8px;">
+        <button class="signout-btn" id="reset-btn" onclick="resetAllData()" style="border-color:var(--red);color:var(--red);">Reset All Data</button>
+        <button class="signout-btn" onclick="doSignOut()">Sign Out</button>
+      </div>
     </header>
 
     <div class="stat-grid">
@@ -111,8 +114,7 @@
 <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore-compat.js"></script>
 <script>
-  /* Use the SAME config as index.html — this must match your Firebase project. */
-  const firebaseConfig = {
+const firebaseConfig = {
   apiKey: "AIzaSyDY60mSv942_wKzCNrDgNR9z6A0lT1fPJM",
   authDomain: "munavar-shinul-wedding.firebaseapp.com",
   projectId: "munavar-shinul-wedding",
@@ -122,8 +124,53 @@
   measurementId: "G-QV9FDTXHN8"
 };
 
+
   var configured = firebaseConfig.apiKey !== "YOUR_API_KEY";
   if (configured) firebase.initializeApp(firebaseConfig);
+  ------------------------------------------------------------ */
+  var RESET_PASSWORD_HASH = "e14279d0a80a353f24187b1fc7254737837e26581d93ecd5853355019f4e151c";
+
+  function sha256Hex(text){
+    return crypto.subtle.digest('SHA-256', new TextEncoder().encode(text)).then(function(buf){
+      return Array.from(new Uint8Array(buf)).map(function(b){return b.toString(16).padStart(2,'0');}).join('');
+    });
+  }
+
+  function resetAllData(){
+    if(!configured){ alert('Firebase is not configured yet.'); return; }
+    var pass = prompt('Enter the reset password to permanently clear ALL RSVP data:');
+    if(pass === null) return;
+    sha256Hex(pass).then(function(hash){
+      if(hash !== RESET_PASSWORD_HASH){
+        alert('Incorrect password. Nothing was deleted.');
+        return;
+      }
+      if(!confirm('This will permanently delete all ' + allRows.length + ' RSVP responses. This cannot be undone. Continue?')) return;
+      var btn = document.getElementById('reset-btn');
+      btn.disabled = true; btn.textContent = 'Deleting…';
+      var db = firebase.firestore();
+      db.collection('rsvps').get().then(function(snap){
+        var batchSize = 400; // Firestore batch limit is 500
+        var docs = snap.docs;
+        var chunks = [];
+        for(var i=0;i<docs.length;i+=batchSize) chunks.push(docs.slice(i,i+batchSize));
+        return chunks.reduce(function(prev, chunk){
+          return prev.then(function(){
+            var batch = db.batch();
+            chunk.forEach(function(d){ batch.delete(d.ref); });
+            return batch.commit();
+          });
+        }, Promise.resolve());
+      }).then(function(){
+        alert('All RSVP data has been cleared.');
+        btn.disabled = false; btn.textContent = 'Reset All Data';
+      }).catch(function(err){
+        console.error('Reset failed:', err);
+        alert('Could not clear data: ' + err.message);
+        btn.disabled = false; btn.textContent = 'Reset All Data';
+      });
+    });
+  }
 
   var allRows = [];
 
