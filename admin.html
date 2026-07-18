@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RSVP Admin — Munavar &amp; Shinul Fasna</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  :root{
+    --accent:#0b4d3a;--accent-light:#e3efe7;--gold:#c9a227;--cream:#fbf7ee;--card-bg:#fff;
+    --text:#221f18;--muted:#8a8370;--border:#e6ddc8;--red:#c65a4e;--red-bg:#fbf0ee;
+    --font-display:'Aref Ruqaa',serif;--font-sans:'Jost',sans-serif;
+  }
+  html,body{min-height:100%;background:var(--cream);font-family:var(--font-sans);color:var(--text);}
+  .wrap{max-width:1000px;margin:0 auto;padding:2rem 1.2rem 4rem;}
+
+  /* Login */
+  #login-screen{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:1rem;}
+  .login-card{background:var(--card-bg);border:1px solid var(--border);border-radius:18px;padding:2.4rem 2rem;max-width:380px;width:100%;text-align:center;box-shadow:0 6px 30px rgba(0,0,0,.06);}
+  .login-card h1{font-family:var(--font-display);font-size:26px;margin-bottom:.3rem;}
+  .login-card p.sub{font-size:11px;letter-spacing:1.5px;color:var(--muted);text-transform:uppercase;margin-bottom:1.6rem;}
+  .login-card input{width:100%;border:1px solid var(--border);border-radius:10px;padding:12px 14px;font-size:14px;margin-bottom:10px;background:var(--cream);outline:none;}
+  .login-card input:focus{border-color:var(--gold);}
+  .login-card button{width:100%;background:var(--accent);color:#fff;border:none;border-radius:10px;padding:14px;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;margin-top:6px;}
+  .login-err{color:var(--red);font-size:12px;margin-top:10px;min-height:16px;}
+
+  /* Dashboard */
+  #dash-screen{display:none;}
+  header.dash-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.6rem;flex-wrap:wrap;gap:10px;}
+  header.dash-header h1{font-family:var(--font-display);font-size:26px;}
+  .signout-btn{background:none;border:1px solid var(--border);border-radius:20px;padding:8px 16px;font-size:11px;letter-spacing:1px;text-transform:uppercase;cursor:pointer;color:var(--muted);}
+  .signout-btn:hover{border-color:var(--red);color:var(--red);}
+
+  .stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:1.6rem;}
+  @media(max-width:640px){.stat-grid{grid-template-columns:1fr 1fr;}}
+  .stat-card{background:var(--card-bg);border:1px solid var(--border);border-radius:14px;padding:1.2rem 1rem;text-align:center;}
+  .stat-num{font-family:var(--font-display);font-size:32px;color:var(--accent);}
+  .stat-label{font-size:10px;letter-spacing:1.4px;color:var(--muted);text-transform:uppercase;margin-top:4px;}
+
+  .toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:1rem;}
+  .toolbar input{flex:1;min-width:180px;border:1px solid var(--border);border-radius:10px;padding:10px 14px;font-size:13px;background:var(--card-bg);outline:none;}
+  .toolbar select{border:1px solid var(--border);border-radius:10px;padding:10px 12px;font-size:12px;background:var(--card-bg);}
+  .export-btn{background:var(--gold);color:#fff;border:none;border-radius:10px;padding:10px 16px;font-size:11px;letter-spacing:1.2px;text-transform:uppercase;cursor:pointer;white-space:nowrap;}
+
+  table{width:100%;border-collapse:collapse;background:var(--card-bg);border:1px solid var(--border);border-radius:14px;overflow:hidden;font-size:13px;}
+  thead th{background:var(--accent-light);text-align:left;padding:10px 12px;font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--accent);}
+  tbody td{padding:10px 12px;border-top:1px solid var(--border);vertical-align:top;}
+  tbody tr:hover{background:var(--cream);}
+  .badge{display:inline-block;padding:3px 10px;border-radius:20px;font-size:10px;letter-spacing:.5px;text-transform:uppercase;}
+  .badge-yes{background:var(--accent-light);color:var(--accent);}
+  .badge-no{background:var(--red-bg);color:var(--red);}
+  .empty-state{text-align:center;padding:3rem 1rem;color:var(--muted);font-size:13px;}
+  .table-wrap{overflow-x:auto;}
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="login-screen">
+  <div class="login-card">
+    <h1>Admin Sign In</h1>
+    <p class="sub">Munavar &amp; Shinul Fasna — RSVPs</p>
+    <input type="email" id="login-email" placeholder="Admin email">
+    <input type="password" id="login-pass" placeholder="Password">
+    <button onclick="doLogin()">Sign In</button>
+    <p class="login-err" id="login-err"></p>
+  </div>
+</div>
+
+<!-- DASHBOARD -->
+<div id="dash-screen">
+  <div class="wrap">
+    <header class="dash-header">
+      <h1>RSVP Dashboard</h1>
+      <button class="signout-btn" onclick="doSignOut()">Sign Out</button>
+    </header>
+
+    <div class="stat-grid">
+      <div class="stat-card"><p class="stat-num" id="stat-total">0</p><p class="stat-label">Responses</p></div>
+      <div class="stat-card"><p class="stat-num" id="stat-yes">0</p><p class="stat-label">Attending (Yes)</p></div>
+      <div class="stat-card"><p class="stat-num" id="stat-guests">0</p><p class="stat-label">Total Guests</p></div>
+      <div class="stat-card"><p class="stat-num" id="stat-no">0</p><p class="stat-label">Can't Attend</p></div>
+    </div>
+
+    <div class="toolbar">
+      <input type="text" id="search-box" placeholder="Search by name or phone…" oninput="renderTable()">
+      <select id="filter-select" onchange="renderTable()">
+        <option value="all">All</option>
+        <option value="yes">Attending</option>
+        <option value="no">Not Attending</option>
+      </select>
+      <button class="export-btn" onclick="exportCSV()">⬇ Export CSV</button>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Name</th><th>Status</th><th>Guests</th><th>Phone</th><th>Message</th><th>Submitted</th></tr>
+        </thead>
+        <tbody id="rsvp-tbody"></tbody>
+      </table>
+      <p class="empty-state" id="empty-state" style="display:none;">No responses yet.</p>
+    </div>
+  </div>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore-compat.js"></script>
+<script>
+  /* Use the SAME config as index.html — this must match your Firebase project. */
+  var firebaseConfig = {
+    apiKey: "YOUR_API_KEY",
+    authDomain: "YOUR_PROJECT.firebaseapp.com",
+    projectId: "YOUR_PROJECT",
+    storageBucket: "YOUR_PROJECT.appspot.com",
+    messagingSenderId: "YOUR_SENDER_ID",
+    appId: "YOUR_APP_ID"
+  };
+
+  var configured = firebaseConfig.apiKey !== "YOUR_API_KEY";
+  if (configured) firebase.initializeApp(firebaseConfig);
+
+  var allRows = [];
+
+  function doLogin(){
+    var email = document.getElementById('login-email').value.trim();
+    var pass = document.getElementById('login-pass').value;
+    var errEl = document.getElementById('login-err');
+    errEl.textContent = '';
+    if(!configured){ errEl.textContent = 'Firebase is not configured yet. See SETUP-GUIDE.md.'; return; }
+    if(!email || !pass){ errEl.textContent = 'Enter email and password.'; return; }
+    firebase.auth().signInWithEmailAndPassword(email, pass).catch(function(err){
+      errEl.textContent = 'Sign-in failed: ' + err.message;
+    });
+  }
+
+  function doSignOut(){ firebase.auth().signOut(); }
+
+  if (configured) {
+    firebase.auth().onAuthStateChanged(function(user){
+      if(user){
+        document.getElementById('login-screen').style.display='none';
+        document.getElementById('dash-screen').style.display='block';
+        listenForRsvps();
+      } else {
+        document.getElementById('login-screen').style.display='flex';
+        document.getElementById('dash-screen').style.display='none';
+      }
+    });
+  }
+
+  function listenForRsvps(){
+    var db = firebase.firestore();
+    db.collection('rsvps').orderBy('timestamp','desc').onSnapshot(function(snap){
+      allRows = [];
+      snap.forEach(function(doc){
+        var d = doc.data();
+        allRows.push({
+          id: doc.id,
+          name: d.name || '—',
+          status: d.status || '—',
+          guests: d.guestCount || (d.status==='yes' ? 1 : 0),
+          phone: d.phone || '',
+          message: d.message || '',
+          timestamp: d.timestamp && d.timestamp.toDate ? d.timestamp.toDate() : (d.timestamp ? new Date(d.timestamp) : null)
+        });
+      });
+      renderStats();
+      renderTable();
+    }, function(err){
+      console.error('Error loading RSVPs:', err);
+      document.getElementById('empty-state').style.display='block';
+      document.getElementById('empty-state').textContent = 'Could not load RSVPs: ' + err.message;
+    });
+  }
+
+  function renderStats(){
+    var yes = allRows.filter(function(r){return r.status==='yes';});
+    var no = allRows.filter(function(r){return r.status==='no';});
+    var totalGuests = yes.reduce(function(sum,r){return sum + (Number(r.guests)||1);}, 0);
+    document.getElementById('stat-total').textContent = allRows.length;
+    document.getElementById('stat-yes').textContent = yes.length;
+    document.getElementById('stat-guests').textContent = totalGuests;
+    document.getElementById('stat-no').textContent = no.length;
+  }
+
+  function renderTable(){
+    var q = document.getElementById('search-box').value.trim().toLowerCase();
+    var filter = document.getElementById('filter-select').value;
+    var rows = allRows.filter(function(r){
+      if(filter!=='all' && r.status!==filter) return false;
+      if(q && !(r.name.toLowerCase().includes(q) || (r.phone||'').toLowerCase().includes(q))) return false;
+      return true;
+    });
+    var tbody = document.getElementById('rsvp-tbody');
+    var emptyEl = document.getElementById('empty-state');
+    tbody.innerHTML = '';
+    if(rows.length===0){ emptyEl.style.display='block'; emptyEl.textContent='No matching responses.'; return; }
+    emptyEl.style.display='none';
+    rows.forEach(function(r){
+      var tr = document.createElement('tr');
+      var badgeClass = r.status==='yes' ? 'badge-yes' : 'badge-no';
+      var badgeText = r.status==='yes' ? 'Attending' : "Can't Attend";
+      var ts = r.timestamp ? r.timestamp.toLocaleString() : '—';
+      tr.innerHTML =
+        '<td>'+escapeHtml(r.name)+'</td>'+
+        '<td><span class="badge '+badgeClass+'">'+badgeText+'</span></td>'+
+        '<td>'+(r.status==='yes' ? r.guests : '—')+'</td>'+
+        '<td>'+escapeHtml(r.phone||'—')+'</td>'+
+        '<td>'+escapeHtml(r.message||'—')+'</td>'+
+        '<td>'+ts+'</td>';
+      tbody.appendChild(tr);
+    });
+  }
+
+  function escapeHtml(s){
+    return String(s).replace(/[&<>"']/g, function(c){
+      return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+    });
+  }
+
+  function exportCSV(){
+    var header = ['Name','Status','Guests','Phone','Message','Submitted'];
+    var lines = [header.join(',')];
+    allRows.forEach(function(r){
+      var ts = r.timestamp ? r.timestamp.toLocaleString() : '';
+      var row = [r.name, r.status, (r.status==='yes'?r.guests:0), r.phone, r.message, ts].map(function(v){
+        var s = String(v==null?'':v).replace(/"/g,'""');
+        return '"'+s+'"';
+      });
+      lines.push(row.join(','));
+    });
+    var blob = new Blob([lines.join('\n')], {type:'text/csv;charset=utf-8;'});
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url; a.download = 'wedding-rsvps.csv';
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }
+
+  if(!configured){
+    document.getElementById('login-err').textContent = 'Firebase is not configured yet. See SETUP-GUIDE.md.';
+  }
+</script>
+</body>
+</html>
