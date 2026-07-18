@@ -112,14 +112,15 @@
 <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore-compat.js"></script>
 <script>
   /* Use the SAME config as index.html — this must match your Firebase project. */
-  var firebaseConfig = {
-    apiKey: "YOUR_API_KEY",
-    authDomain: "YOUR_PROJECT.firebaseapp.com",
-    projectId: "YOUR_PROJECT",
-    storageBucket: "YOUR_PROJECT.appspot.com",
-    messagingSenderId: "YOUR_SENDER_ID",
-    appId: "YOUR_APP_ID"
-  };
+  const firebaseConfig = {
+  apiKey: "AIzaSyDY60mSv942_wKzCNrDgNR9z6A0lT1fPJM",
+  authDomain: "munavar-shinul-wedding.firebaseapp.com",
+  projectId: "munavar-shinul-wedding",
+  storageBucket: "munavar-shinul-wedding.firebasestorage.app",
+  messagingSenderId: "959478418224",
+  appId: "1:959478418224:web:6a780abe79809c356f16f5",
+  measurementId: "G-QV9FDTXHN8"
+};
 
   var configured = firebaseConfig.apiKey !== "YOUR_API_KEY";
   if (configured) firebase.initializeApp(firebaseConfig);
