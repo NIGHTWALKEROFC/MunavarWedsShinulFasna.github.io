@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Munavar &amp; Shinul Fasna — Walima Invitation</title>
+<meta name="description" content="You're cordially invited to the wedding of Munavar & Shinul Fasna, 2nd August 2026 at BNK Convention Centre.">
+
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><path d='M32 6 A20 20 0 1 0 40 44 A24 24 0 1 1 32 6 Z' fill='%23c9a227'/><path d='M46 10 l2.4 5 5.4.6-4 3.8 1 5.4-4.8-2.7-4.8 2.7 1-5.4-4-3.8 5.4-.6z' fill='%23c9a227'/></svg>">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Munavar & Shinul Fasna — Walima Invitation">
+<meta property="og:description" content="Join us to celebrate our Nikah, 2nd August 2026, BNK Convention Centre.">
+<meta name="theme-color" content="#0b4d3a">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=Amiri:ital@0;1&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  :root{
+    --accent:#0b4d3a; --accent-light:#e3efe7; --accent-dark:#083a2b;
+    --gold:#c9a227; --gold-light:#f8f0d8; --gold-dark:#a9840f;
+    --cream:#fbf7ee; --card-bg:#ffffff; --text:#221f18; --muted:#8a8370;
+    --border:#e6ddc8; --red-soft:#c65a4e; --red-bg:#fbf0ee;
+    --font-display:'Aref Ruqaa', serif; --font-script:'Amiri', serif; --font-sans:'Jost', sans-serif;
+  }
+  body.dark{
+    --cream:#12110d; --card-bg:#1c1a14; --text:#f1ead9; --muted:#a39a80;
+    --border:#332e1e; --accent-light:#16241d; --red-bg:#2a1a17;
+  }
+  html,body{height:100%;background:var(--cream);font-family:var(--font-sans);color:var(--text);overflow-x:hidden;transition:background .3s,color .3s;}
+  body{
+    background-image:
+      linear-gradient(45deg, rgba(201,162,39,0.05) 25%, transparent 25%),
+      linear-gradient(-45deg, rgba(201,162,39,0.05) 25%, transparent 25%),
+      linear-gradient(45deg, transparent 75%, rgba(201,162,39,0.05) 75%),
+      linear-gradient(-45deg, transparent 75%, rgba(201,162,39,0.05) 75%);
+    background-size:46px 46px; background-position:0 0,0 23px,23px -23px,-23px 0;
+  }
+  #petalCanvas,#confettiCanvas{position:fixed;inset:0;pointer-events:none;width:100%;height:100%;}
+  #petalCanvas{z-index:1;} #confettiCanvas{z-index:200;}
+
+  .screen{display:none;min-height:100vh;width:100%;animation:fadeIn .5s ease forwards;position:relative;z-index:2;padding-bottom:52px;}
+  .screen.active{display:flex;}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);}}
+
+  .fab-controls{position:fixed;top:14px;right:14px;z-index:100;display:flex;gap:8px;}
+  .fab-btn{width:40px;height:40px;border-radius:50%;border:1px solid var(--border);background:var(--card-bg);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;color:var(--text);box-shadow:0 2px 10px rgba(0,0,0,.08);transition:transform .15s;}
+  .fab-btn:hover{transform:scale(1.08);}
+
+  /* Loader */
+  #screen-loader{flex-direction:column;align-items:center;justify-content:center;background:var(--cream);}
+  .loader-wrap{display:flex;flex-direction:column;align-items:center;gap:26px;}
+  .rings-loader{position:relative;width:96px;height:96px;}
+  .ring{position:absolute;border-radius:50%;border:2px solid transparent;}
+  .ring-outer{width:96px;height:96px;border-top-color:var(--gold);border-right-color:var(--gold);animation:spinCW 1.8s cubic-bezier(.4,0,.2,1) infinite;opacity:.9;}
+  .ring-mid{width:66px;height:66px;top:15px;left:15px;border-bottom-color:var(--accent);border-left-color:var(--accent);animation:spinCCW 1.4s cubic-bezier(.4,0,.2,1) infinite;opacity:.7;}
+  .ring-center{width:8px;height:8px;top:44px;left:44px;background:var(--gold);border:none;animation:pulse 1.8s ease-in-out infinite;}
+  @keyframes spinCW{to{transform:rotate(360deg);}} @keyframes spinCCW{to{transform:rotate(-360deg);}}
+  @keyframes pulse{0%,100%{transform:scale(.6);opacity:.3;}50%{transform:scale(1.4);opacity:1;}}
+  .loader-label{font-family:var(--font-script);font-style:italic;font-size:19px;color:var(--muted);animation:labelFade 2s ease-in-out infinite;}
+  @keyframes labelFade{0%,100%{opacity:.5;}50%{opacity:1;}}
+
+  /* Card shell */
+  #screen-invite,#screen-rsvp,#screen-decline,#screen-final{align-items:flex-start;justify-content:center;padding:4rem 1rem 4rem;}
+  .card{background:var(--card-bg);border-radius:22px;border:1px solid var(--border);padding:2.2rem 1.8rem 2.5rem;width:100%;max-width:480px;box-shadow:0 6px 34px rgba(0,0,0,.06);text-align:center;}
+  body.dark .card{box-shadow:0 6px 34px rgba(0,0,0,.35);}
+
+  /* Arch monogram (signature element) */
+  .arch-wrap{width:150px;height:170px;margin:0 auto .6rem;position:relative;}
+  .arch-wrap svg{width:100%;height:100%;overflow:visible;}
+
+  .quote{text-align:center;font-family:var(--font-script);font-style:italic;font-size:16px;color:var(--muted);line-height:1.6;margin-bottom:1.1rem;}
+  .tag{text-align:center;font-size:9px;letter-spacing:2.6px;color:var(--muted);text-transform:uppercase;margin-bottom:6px;}
+  .divider-ornament{display:flex;align-items:center;justify-content:center;gap:10px;margin:1rem 0;color:var(--gold);font-size:12px;}
+  .divider-ornament::before,.divider-ornament::after{content:'';flex:1;height:.5px;background:var(--border);max-width:60px;}
+
+  .couple-section{display:flex;flex-direction:column;align-items:center;margin-bottom:1rem;}
+  .groom-col{width:100%;}
+  .bride-col{width:100%;border-bottom:1px solid var(--border);padding-bottom:1rem;}
+  .couple-name{font-family:var(--font-display);font-weight:700;font-size:30px;line-height:1.25;}
+  .heart-col{font-size:20px;color:var(--gold);padding:.6rem 0;}
+
+  .date-row{display:grid;grid-template-columns:1fr auto 1fr;border:1px solid var(--border);border-radius:14px;overflow:hidden;margin:1.2rem 0 .6rem;}
+  .date-cell{padding:16px 10px;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+  .date-cell+.date-cell{border-left:1px solid var(--border);}
+  .date-month{font-size:11px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;opacity:.8;}
+  .date-weekday{font-size:10px;color:var(--muted);margin-top:1px;}
+  .date-day{font-family:var(--font-display);font-weight:700;font-size:44px;color:var(--accent);line-height:1;}
+  .date-time{font-size:13px;opacity:.85;}
+
+  .hijri{text-align:center;font-size:11px;color:var(--gold-dark);margin:.5rem 0 .9rem;display:flex;align-items:center;justify-content:center;gap:8px;letter-spacing:.5px;}
+  .hijri::before,.hijri::after{content:'';display:inline-block;width:22px;height:.5px;background:var(--border);}
+
+  .venue-name{text-align:center;font-size:13.5px;letter-spacing:2.4px;font-weight:600;text-transform:uppercase;margin-bottom:3px;}
+  .venue-loc{text-align:center;font-size:12px;color:var(--muted);margin-bottom:.9rem;}
+  .venue-loc::before{content:'⊙ ';}
+
+  .cd-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:1.5rem;}
+  .cd-cell{border:1px solid var(--border);border-radius:10px;padding:10px 4px 8px;background:var(--cream);}
+  .cd-num{font-family:var(--font-display);font-weight:700;font-size:22px;}
+  .cd-unit{font-size:8px;letter-spacing:1.5px;color:var(--muted);text-transform:uppercase;margin-top:4px;}
+
+  .action-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:1rem;}
+  .action-btn{padding:11px;border-radius:50px;border:1px solid var(--border);background:var(--cream);font-family:var(--font-sans);font-size:10px;letter-spacing:1.4px;text-transform:uppercase;cursor:pointer;color:var(--text);text-decoration:none;display:flex;align-items:center;justify-content:center;gap:6px;}
+  .action-btn:hover{border-color:var(--gold);color:var(--gold-dark);}
+
+  .rsvp-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+  @media (max-width:380px){.rsvp-grid{grid-template-columns:1fr;}}
+  .btn-yes,.btn-no{border-radius:50px;padding:14px 10px;display:flex;align-items:center;gap:9px;cursor:pointer;border:1.5px solid;background:var(--card-bg);}
+  .btn-yes:active,.btn-no:active{transform:scale(.97);}
+  .btn-yes{border-color:var(--accent);} .btn-yes:hover{background:var(--accent-light);}
+  .btn-yes .rsvp-btn-label{color:var(--accent);} .btn-yes .icon-yes{border-color:var(--accent);color:var(--accent);}
+  .btn-no{border-color:#e6c9c4;} .btn-no:hover{background:var(--red-bg);}
+  .btn-no .rsvp-btn-label{color:var(--red-soft);font-style:italic;} .btn-no .icon-no{border-color:var(--red-soft);color:var(--red-soft);}
+  .icon-circle{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0;}
+  .rsvp-btn-label{font-size:clamp(10px,2.8vw,12px);line-height:1.3;}
+
+  /* Forms (RSVP / decline) */
+  .back-btn{display:flex;align-items:center;gap:6px;background:none;border:none;font-size:10px;color:var(--muted);cursor:pointer;padding:0;margin-bottom:1.6rem;letter-spacing:1px;text-transform:uppercase;}
+  .page-title{font-family:var(--font-display);font-weight:700;font-size:32px;margin-bottom:4px;}
+  .page-sub{font-size:9px;letter-spacing:2.4px;color:var(--muted);text-transform:uppercase;margin-bottom:1.8rem;}
+  .form-group{display:flex;flex-direction:column;gap:5px;margin-bottom:12px;text-align:left;}
+  .form-group label{font-size:10px;letter-spacing:1px;color:var(--muted);text-transform:uppercase;}
+  .form-group label.required::after{content:' *';color:var(--red-soft);}
+  .form-group input,.form-group textarea{border:1px solid var(--border);border-radius:10px;padding:12px 14px;font-family:var(--font-sans);font-size:14px;color:var(--text);background:var(--cream);outline:none;transition:border-color .2s;resize:vertical;width:100%;}
+  .form-group input:focus,.form-group textarea:focus{border-color:var(--gold);background:var(--card-bg);}
+  .field-error-msg{font-size:10px;color:var(--red-soft);margin-top:3px;}
+  .field-error{border-color:var(--red-soft) !important;background:var(--red-bg) !important;}
+
+  .member-box{background:var(--cream);border-radius:14px;border:1px solid var(--border);padding:1.7rem 1rem;text-align:center;margin-bottom:1.3rem;}
+  .member-q{font-family:var(--font-script);font-style:italic;font-size:17px;color:var(--muted);margin-bottom:1.3rem;}
+  .counter{display:flex;align-items:center;justify-content:center;gap:26px;margin-bottom:10px;}
+  .counter-btn{width:44px;height:44px;border-radius:50%;border:1px solid var(--border);background:var(--card-bg);font-size:22px;cursor:pointer;color:var(--text);display:flex;align-items:center;justify-content:center;box-shadow:0 1px 5px rgba(0,0,0,.06);}
+  .counter-num{font-family:var(--font-display);font-weight:700;font-size:44px;min-width:46px;}
+  .counter-incl{font-size:9px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;}
+  .submit-btn{width:100%;background:var(--accent);color:#fff;border:none;border-radius:50px;padding:17px;font-size:11px;font-weight:500;letter-spacing:2.4px;text-transform:uppercase;cursor:pointer;}
+  .submit-btn:hover{background:var(--accent-dark);}
+  .submit-btn:disabled{opacity:.6;cursor:wait;}
+
+  /* Decline */
+  .decline-icon{width:60px;height:60px;border-radius:50%;background:var(--red-bg);border:1px solid #e6c9c4;display:flex;align-items:center;justify-content:center;font-size:26px;margin:0 auto 1.2rem;}
+  .decline-message{font-family:var(--font-script);font-style:italic;font-size:15px;color:var(--muted);background:var(--red-bg);border-left:2px solid var(--red-soft);padding:.9rem 1.1rem;border-radius:0 10px 10px 0;margin-bottom:1.6rem;text-align:left;line-height:1.7;}
+  .decline-change-btn{width:100%;background:var(--accent-light);color:var(--accent);border:1px solid var(--accent);border-radius:50px;padding:14px;font-size:11px;font-weight:500;letter-spacing:1.4px;text-transform:uppercase;cursor:pointer;margin-top:6px;}
+  .decline-change-btn:hover{background:var(--accent);color:#fff;}
+
+  /* Final */
+  .star-badge{width:50px;height:50px;border-radius:50%;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:20px;margin:0 auto 1.1rem;background:var(--cream);}
+  .final-title{font-family:var(--font-display);font-weight:700;font-size:30px;margin-bottom:4px;}
+  .final-name{font-size:9px;letter-spacing:3px;color:var(--muted);text-transform:uppercase;margin-bottom:1.3rem;}
+  .final-info{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--border);border-radius:14px;overflow:hidden;margin-bottom:1rem;}
+  .fi-date{padding:1.1rem 1rem;border-right:1px solid var(--border);}
+  .fi-date-num{font-family:var(--font-display);font-weight:700;font-size:34px;color:var(--accent);}
+  .fi-date-mon{font-size:10px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin:8px 0;}
+  .fi-time-label{font-size:8px;letter-spacing:1.4px;color:var(--muted);text-transform:uppercase;}
+  .fi-time{font-size:13px;font-weight:500;margin-top:2px;}
+  .fi-venue{padding:1.1rem 1rem;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;}
+  .fi-venue-name{font-size:11px;letter-spacing:1.8px;font-weight:600;text-transform:uppercase;}
+  .fi-venue-loc{font-size:10px;color:var(--muted);letter-spacing:.5px;margin-bottom:8px;}
+  .loc-chip{display:inline-flex;align-items:center;gap:4px;border:1px solid var(--border);border-radius:20px;padding:5px 12px;font-size:9px;letter-spacing:1px;text-transform:uppercase;cursor:pointer;background:var(--card-bg);text-decoration:none;color:var(--text);}
+
+  @media (max-width:400px){.couple-name{font-size:24px;} .date-day{font-size:36px;}}
+  .site-footer{position:fixed;bottom:0;left:0;right:0;z-index:999;border-top:1px solid var(--border);padding:9px 16px;display:flex;align-items:center;justify-content:center;gap:6px;font-size:10px;letter-spacing:1.3px;text-transform:uppercase;color:var(--muted);background:rgba(255,255,255,.88);backdrop-filter:blur(10px);}
+  body.dark .site-footer{background:rgba(18,17,13,.92);}
+  .site-footer a{color:var(--accent);text-decoration:none;font-weight:500;}
+  .footer-dot{width:3px;height:3px;border-radius:50%;background:var(--border);}
+</style>
+</head>
+<body>
+
+<canvas id="petalCanvas"></canvas>
+<canvas id="confettiCanvas"></canvas>
+
+<div class="fab-controls">
+  <button class="fab-btn" onclick="toggleDarkMode()" title="Toggle dark mode" id="fab-dark">🌙</button>
+</div>
+
+<!-- LOADER -->
+<div class="screen active" id="screen-loader">
+  <div class="loader-wrap">
+    <div class="rings-loader"><div class="ring ring-outer"></div><div class="ring ring-mid"></div><div class="ring ring-center"></div></div>
+    <p class="loader-label">بِسْمِ اللَّهِ — opening your invitation…</p>
+  </div>
+</div>
+
+<!-- INVITE -->
+<div class="screen" id="screen-invite">
+  <div class="card">
+    <div class="arch-wrap">
+      <svg viewBox="0 0 150 170" xmlns="http://www.w3.org/2000/svg">
+        <path d="M13 30 A62 62 0 0 1 137 30 L137 150 L13 150 Z" fill="none" stroke="var(--gold)" stroke-width="2"/>
+        <path d="M20 30 A55 55 0 0 1 130 30 L130 143 L20 143 Z" fill="none" stroke="var(--accent)" stroke-width="1" opacity="0.55"/>
+        <path d="M67 6 l3 6.5 7 .8 -5.2 4.9 1.3 7 -6.1-3.4 -6.1 3.4 1.3-7 -5.2-4.9 7-.8z" fill="var(--gold)"/>
+        <text x="75" y="98" text-anchor="middle" dominant-baseline="central" font-family="var(--font-display)" font-weight="700" font-size="34" fill="var(--accent)">M &amp; S</text>
+      </svg>
+    </div>
+
+    <p class="quote">In the name of Allah, the Most Gracious, the Most Merciful</p>
+
+    <p class="tag">Together with their families</p>
+    <div class="divider-ornament">✦</div>
+
+    <div class="couple-section">
+      <div class="groom-col"><p class="couple-name">Munavar</p></div>
+      <div class="heart-col">&#9825;</div>
+      <div class="bride-col"><p class="couple-name">Shinul Fasna</p></div>
+    </div>
+
+    <p class="tag">Request the honour of your presence at their Walima</p>
+
+    <div class="date-row">
+      <div class="date-cell"><p class="date-month" id="inv-month"></p><p class="date-weekday" id="inv-year-weekday"></p></div>
+      <div class="date-cell"><p class="date-day" id="inv-day"></p></div>
+      <div class="date-cell"><p class="date-time">10:00 AM<br>–&nbsp;4:00 PM</p></div>
+    </div>
+
+    <p class="hijri">18 Safar, 1448 AH</p>
+
+    <p class="venue-name">BNK Convention Centre</p>
+    <p class="venue-loc">Auditorium</p>
+
+    <p class="tag" style="margin-bottom:10px;">Wedding Countdown</p>
+    <div class="cd-grid">
+      <div class="cd-cell"><p class="cd-num" id="cd-days">00</p><p class="cd-unit">Days</p></div>
+      <div class="cd-cell"><p class="cd-num" id="cd-hours">00</p><p class="cd-unit">Hours</p></div>
+      <div class="cd-cell"><p class="cd-num" id="cd-mins">00</p><p class="cd-unit">Mins</p></div>
+      <div class="cd-cell"><p class="cd-num" id="cd-secs">00</p><p class="cd-unit">Secs</p></div>
+    </div>
+
+    <div class="action-row">
+      <a href="#" id="cal-link" class="action-btn" target="_blank">📅 Add to Calendar</a>
+      <a href="https://maps.app.goo.gl/jHiNw3cw64YHjiNw7" id="map-link" class="action-btn" target="_blank">📍 Get Directions</a>
+    </div>
+
+    <p class="tag" style="margin-bottom:10px;">Will you attend?</p>
+    <div class="rsvp-grid">
+      <button class="btn-yes" onclick="handleYes()">
+        <div class="icon-circle icon-yes">✓</div><span class="rsvp-btn-label">Yes, with joy! 😊</span>
+      </button>
+      <button class="btn-no" onclick="showScreen('screen-decline')">
+        <div class="icon-circle icon-no">✕</div><span class="rsvp-btn-label">Sorry, I can't make it</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- RSVP YES -->
+<div class="screen" id="screen-rsvp">
+  <div class="card">
+    <button class="back-btn" onclick="showScreen('screen-invite')">‹ &nbsp; Back</button>
+    <p class="page-title">Wonderful!</p>
+    <p class="page-sub">A few details for the family</p>
+
+    <div class="form-group">
+      <label class="required">Your Name</label>
+      <input type="text" id="rsvp-name" placeholder="e.g. Ashiq Rahman">
+    </div>
+    <div class="form-group">
+      <label>Phone (optional)</label>
+      <input type="tel" id="rsvp-phone" placeholder="e.g. 9995558877" inputmode="numeric" oninput="this.value=this.value.replace(/[^0-9+\-\s]/g,'')">
+    </div>
+
+    <div class="member-box">
+      <p class="member-q">How many, including yourself, will attend?</p>
+      <div class="counter">
+        <button class="counter-btn" onclick="changeCount(-1)">−</button>
+        <p class="counter-num" id="member-count">1</p>
+        <button class="counter-btn" onclick="changeCount(1)">+</button>
+      </div>
+      <p class="counter-incl">Total Guests</p>
+    </div>
+
+    <button class="submit-btn" id="submit-yes-btn" onclick="submitRsvp('yes')">Submit RSVP</button>
+  </div>
+</div>
+
+<!-- DECLINE -->
+<div class="screen" id="screen-decline">
+  <div class="card">
+    <button class="back-btn" onclick="showScreen('screen-invite')">‹ &nbsp; Back</button>
+    <div class="decline-icon">🌙</div>
+    <p class="page-title">We'll Miss You</p>
+    <p class="page-sub">We understand</p>
+
+    <div class="decline-message">Thank you for letting us know. Though you won't be with us in person, you'll be in our duas as we celebrate this day.</div>
+
+    <div class="form-group">
+      <label class="required">Your Name</label>
+      <input type="text" id="decline-name" placeholder="e.g. Ashiq Rahman">
+    </div>
+    <div class="form-group">
+      <label>A message for the couple (optional)</label>
+      <textarea id="decline-message" rows="2" placeholder="Best wishes..."></textarea>
+    </div>
+
+    <button class="submit-btn" id="submit-no-btn" onclick="submitRsvp('no')">Send Regrets</button>
+    <button class="decline-change-btn" onclick="showScreen('screen-invite')">Change my mind — I'll attend!</button>
+  </div>
+</div>
+
+<!-- FINAL -->
+<div class="screen" id="screen-final">
+  <div class="card">
+    <button class="back-btn" onclick="showScreen('screen-invite')">‹ &nbsp; Back</button>
+    <div class="star-badge">✨</div>
+    <p class="final-title">We Can't Wait!</p>
+    <p class="final-name" id="final-name">Dear Guest</p>
+
+    <div class="final-info">
+      <div class="fi-date">
+        <p class="fi-date-num" id="fi-day"></p>
+        <p class="fi-date-mon" id="fi-mon"></p>
+        <p class="fi-time-label">Wedding Time</p>
+        <p class="fi-time">10AM–4PM</p>
+      </div>
+      <div class="fi-venue">
+        <p class="fi-venue-name">BNK Convention Centre</p>
+        <p class="fi-venue-loc">Auditorium</p>
+        <a href="https://maps.app.goo.gl/jHiNw3cw64YHjiNw7" target="_blank" class="loc-chip">⊙ Click for location</a>
+      </div>
+    </div>
+
+    <div class="action-row" style="grid-template-columns:1fr;margin-bottom:1.4rem;">
+      <a href="#" id="cal-link-2" class="action-btn" target="_blank">📅 Add to Calendar</a>
+    </div>
+
+    <p class="tag" style="margin-bottom:10px;">Wedding Countdown</p>
+    <div class="cd-grid" style="margin-bottom:0;">
+      <div class="cd-cell"><p class="cd-num" id="cd2-days">00</p><p class="cd-unit">Days</p></div>
+      <div class="cd-cell"><p class="cd-num" id="cd2-hours">00</p><p class="cd-unit">Hours</p></div>
+      <div class="cd-cell"><p class="cd-num" id="cd2-mins">00</p><p class="cd-unit">Mins</p></div>
+      <div class="cd-cell"><p class="cd-num" id="cd2-secs">00</p><p class="cd-unit">Secs</p></div>
+    </div>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <span>Munavar &amp; Shinul Fasna</span><span class="footer-dot"></span><span>2 Aug 2026</span>
+</footer>
+
+<!-- Firebase (compat SDK — works with plain <script> tags, no build step needed) -->
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore-compat.js"></script>
+
+<script>
+  /* ============================================================
+     FIREBASE CONFIG — replace with your own project's values.
+     See SETUP-GUIDE.md for step-by-step instructions.
+     Until you fill this in, RSVPs will still work on-screen but
+     will NOT be saved anywhere (demo mode).
+  ============================================================ */
+  var firebaseConfig = {
+    apiKey: "YOUR_API_KEY",
+    authDomain: "YOUR_PROJECT.firebaseapp.com",
+    projectId: "YOUR_PROJECT",
+    storageBucket: "YOUR_PROJECT.appspot.com",
+    messagingSenderId: "YOUR_SENDER_ID",
+    appId: "YOUR_APP_ID"
+  };
+
+  var dbReady = false, db = null;
+  try {
+    if (firebaseConfig.apiKey !== "YOUR_API_KEY") {
+      firebase.initializeApp(firebaseConfig);
+      db = firebase.firestore();
+      dbReady = true;
+    } else {
+      console.warn("Firebase not configured yet — RSVPs will not be saved. See SETUP-GUIDE.md");
+    }
+  } catch (e) { console.error("Firebase init failed:", e); }
+
+  var EVENT_DATE = "2026-08-02";
+  var EVENT_START = new Date(EVENT_DATE + "T10:00:00");
+  var EVENT_END   = new Date(EVENT_DATE + "T16:00:00");
+  var TARGET_DATE = EVENT_START.getTime();
+
+  var MONTHS=['January','February','March','April','May','June','July','August','September','October','November','December'];
+  var DAYS=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+
+  function pad(n){return String(n).padStart(2,'0');}
+
+  function buildCalendarUrl(){
+    function fmt(d){return d.getUTCFullYear()+pad(d.getUTCMonth()+1)+pad(d.getUTCDate())+'T'+pad(d.getUTCHours())+pad(d.getUTCMinutes())+'00Z';}
+    var title=encodeURIComponent('Wedding: Munavar & Shinul Fasna');
+    var dates=fmt(EVENT_START)+'/'+fmt(EVENT_END);
+    var loc=encodeURIComponent('BNK Convention Centre, Auditorium');
+    var details=encodeURIComponent('Join us to celebrate the wedding of Munavar & Shinul Fasna. Directions: https://maps.app.goo.gl/jHiNw3cw64YHjiNw7');
+    return 'https://www.google.com/calendar/render?action=TEMPLATE&text='+title+'&dates='+dates+'&location='+loc+'&details='+details;
+  }
+
+  function populateInvite(){
+    var d=EVENT_START;
+    document.getElementById('inv-month').textContent=MONTHS[d.getMonth()];
+    document.getElementById('inv-year-weekday').textContent=d.getFullYear()+', '+DAYS[d.getDay()];
+    document.getElementById('inv-day').textContent=d.getDate();
+    document.getElementById('fi-day').textContent=d.getDate();
+    document.getElementById('fi-mon').textContent=MONTHS[d.getMonth()].slice(0,3).toUpperCase();
+    var calUrl=buildCalendarUrl();
+    document.getElementById('cal-link').href=calUrl;
+    document.getElementById('cal-link-2').href=calUrl;
+  }
+
+  function updateCountdown(){
+    var diff=Math.max(0, TARGET_DATE-Date.now());
+    var dd=Math.floor(diff/86400000), hh=Math.floor((diff%86400000)/3600000), mm=Math.floor((diff%3600000)/60000), ss=Math.floor((diff%60000)/1000);
+    ['cd-days','cd2-days'].forEach(function(id){var e=document.getElementById(id); if(e) e.textContent=pad(dd);});
+    ['cd-hours','cd2-hours'].forEach(function(id){var e=document.getElementById(id); if(e) e.textContent=pad(hh);});
+    ['cd-mins','cd2-mins'].forEach(function(id){var e=document.getElementById(id); if(e) e.textContent=pad(mm);});
+    ['cd-secs','cd2-secs'].forEach(function(id){var e=document.getElementById(id); if(e) e.textContent=pad(ss);});
+  }
+
+  function showScreen(id){
+    document.querySelectorAll('.screen').forEach(function(s){s.classList.remove('active');s.style.display='none';});
+    var el=document.getElementById(id);
+    el.style.display='flex';
+    window.scrollTo(0,0);
+    requestAnimationFrame(function(){el.classList.add('active');});
+  }
+
+  function toggleDarkMode(){
+    var isDark=document.body.classList.toggle('dark');
+    document.getElementById('fab-dark').textContent=isDark?'☀':'🌙';
+    try{localStorage.setItem('wi-dark', isDark?'1':'0');}catch(e){}
+  }
+  try{ if(localStorage.getItem('wi-dark')==='1'){document.body.classList.add('dark');document.getElementById('fab-dark').textContent='☀';} }catch(e){}
+
+  populateInvite();
+  setInterval(updateCountdown,1000);
+  updateCountdown();
+  showScreen('screen-loader');
+  setTimeout(function(){showScreen('screen-invite');},2200);
+
+  function handleYes(){
+    launchFullPagePopper();
+    setTimeout(function(){showScreen('screen-rsvp');},700);
+  }
+
+  var memberCount=1;
+  function changeCount(delta){
+    memberCount=Math.max(1, Math.min(30, memberCount+delta));
+    document.getElementById('member-count').textContent=memberCount;
+  }
+
+  function clearErr(id){var el=document.getElementById(id); if(!el) return; el.classList.remove('field-error'); var m=el.parentNode.querySelector('.field-error-msg'); if(m) m.remove();}
+  function setErr(id,text){var el=document.getElementById(id); if(!el) return; el.classList.add('field-error'); if(!el.parentNode.querySelector('.field-error-msg')){var m=document.createElement('span');m.className='field-error-msg';m.textContent=text;el.parentNode.appendChild(m);} el.addEventListener('input',function(){clearErr(id);},{once:true});}
+
+  function submitRsvp(status){
+    var isYes = status==='yes';
+    var nameId = isYes ? 'rsvp-name' : 'decline-name';
+    var btnId  = isYes ? 'submit-yes-btn' : 'submit-no-btn';
+    var name = document.getElementById(nameId).value.trim();
+    clearErr(nameId);
+    if(!name){ setErr(nameId,'Please enter your name'); return; }
+
+    var payload = {
+      name: name,
+      status: status,
+      timestamp: dbReady ? firebase.firestore.FieldValue.serverTimestamp() : new Date().toISOString()
+    };
+    if(isYes){
+      payload.phone = document.getElementById('rsvp-phone').value.trim();
+      payload.guestCount = memberCount;
+    } else {
+      payload.message = document.getElementById('decline-message').value.trim();
+    }
+
+    var btn=document.getElementById(btnId);
+    btn.disabled=true; btn.textContent='Sending…';
+
+    function done(){
+      document.getElementById('final-name').textContent = name;
+      if(isYes){
+        showScreen('screen-final');
+        setTimeout(function(){launchConfetti();},250);
+      } else {
+        var d=EVENT_START;
+        showScreen('screen-decline'); // re-render already visible; just show a lightweight confirmation state
+        btn.textContent='Sent ✓';
+      }
+      btn.disabled=false;
+      if(isYes) btn.textContent='Submit RSVP'; else btn.textContent='Sent ✓';
+    }
+
+    if(dbReady){
+      db.collection('rsvps').add(payload).then(done).catch(function(err){
+        console.error('Firestore write failed:', err);
+        btn.disabled=false; btn.textContent = isYes ? 'Submit RSVP' : 'Send Regrets';
+        alert('Could not save your response right now. Please check your connection and try again.');
+      });
+    } else {
+      console.warn('Demo mode — RSVP not saved:', payload);
+      setTimeout(done, 400);
+    }
+  }
+
+  /* Ambient falling gold ornaments */
+  (function runPetals(){
+    var canvas=document.getElementById('petalCanvas'); var ctx=canvas.getContext('2d'); var W,H;
+    function resize(){W=canvas.width=window.innerWidth;H=canvas.height=window.innerHeight;}
+    resize(); window.addEventListener('resize',resize);
+    var COLORS=['#c9a227','#0b4d3a','#e3c667','#3d7a5e'];
+    var items=[]; var N=Math.max(10,Math.floor(window.innerWidth/110));
+    function make(fromTop){return {x:Math.random()*W,y:fromTop?-20:Math.random()*H,size:5+Math.random()*6,vy:.3+Math.random()*.6,vx:(Math.random()-.5)*.4,swayFreq:.005+Math.random()*.01,swayPhase:Math.random()*Math.PI*2,rot:Math.random()*Math.PI*2,vrot:(Math.random()-.5)*.02,color:COLORS[Math.floor(Math.random()*COLORS.length)],alpha:.35+Math.random()*.35};}
+    for(var i=0;i<N;i++) items.push(make(false));
+    function drawStar(p){
+      ctx.save();ctx.translate(p.x,p.y);ctx.rotate(p.rot);ctx.globalAlpha=p.alpha;ctx.fillStyle=p.color;
+      ctx.beginPath();
+      for(var k=0;k<4;k++){
+        var a=(Math.PI/2)*k;
+        ctx.lineTo(Math.cos(a)*p.size, Math.sin(a)*p.size);
+        ctx.lineTo(Math.cos(a+Math.PI/4)*p.size*0.35, Math.sin(a+Math.PI/4)*p.size*0.35);
+      }
+      ctx.closePath();ctx.fill();ctx.restore();
+    }
+    function frame(t){
+      ctx.clearRect(0,0,W,H);
+      items.forEach(function(p,i){
+        p.y+=p.vy; p.x+=p.vx+Math.sin(t*p.swayFreq+p.swayPhase)*0.3; p.rot+=p.vrot;
+        if(p.y>H+20||p.x<-20||p.x>W+20) items[i]=make(true);
+        drawStar(p);
+      });
+      requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+  })();
+
+  function launchFullPagePopper(){
+    var canvas=document.getElementById('confettiCanvas'); var ctx=canvas.getContext('2d');
+    canvas.width=window.innerWidth;canvas.height=window.innerHeight;
+    var colors=['#c9a227','#0b4d3a','#e3c667','#3d7a5e','#f8f0d8'];
+    var particles=[]; var origins=[{x:canvas.width*.2,y:canvas.height*.5},{x:canvas.width*.5,y:canvas.height*.4},{x:canvas.width*.8,y:canvas.height*.5}];
+    origins.forEach(function(o){
+      for(var i=0;i<45;i++){
+        var angle=Math.random()*Math.PI*2, speed=Math.random()*10+4;
+        particles.push({x:o.x,y:o.y,vx:Math.cos(angle)*speed,vy:Math.sin(angle)*speed-(Math.random()*5+2),w:Math.random()*7+3,h:Math.random()*7+3,color:colors[Math.floor(Math.random()*colors.length)],rot:Math.random()*360,vrot:(Math.random()-.5)*16,alpha:1,gravity:.15+Math.random()*.1,delay:Math.floor(Math.random()*18)});
+      }
+    });
+    var frame=0,maxF=100;
+    function draw(){
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      particles.forEach(function(p){
+        if(frame<p.delay) return;
+        ctx.save();ctx.globalAlpha=Math.max(0,p.alpha);ctx.translate(p.x,p.y);ctx.rotate(p.rot*Math.PI/180);ctx.fillStyle=p.color;
+        ctx.fillRect(-p.w/2,-p.h/2,p.w,p.h);
+        ctx.restore();
+        p.x+=p.vx;p.y+=p.vy;p.vy+=p.gravity;p.vx*=0.97;p.rot+=p.vrot;p.alpha=Math.max(0,1-(frame-p.delay)/(maxF-p.delay));
+      });
+      frame++;
+      if(frame<maxF) requestAnimationFrame(draw); else ctx.clearRect(0,0,canvas.width,canvas.height);
+    }
+    draw();
+  }
+
+  function launchConfetti(){
+    var canvas=document.getElementById('confettiCanvas'); var ctx=canvas.getContext('2d');
+    canvas.width=window.innerWidth;canvas.height=window.innerHeight;
+    var colors=['#c9a227','#0b4d3a','#e3c667','#3d7a5e','#f8f0d8'];
+    var particles=Array.from({length:140},function(){
+      return {x:Math.random()*canvas.width,y:Math.random()*canvas.height-canvas.height,w:Math.random()*7+3,h:Math.random()*7+3,color:colors[Math.floor(Math.random()*colors.length)],vx:(Math.random()-.5)*3,vy:Math.random()*4+1.5,rot:Math.random()*360,vrot:(Math.random()-.5)*8};
+    });
+    var frame=0,maxF=150;
+    function draw(){
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      particles.forEach(function(p){
+        ctx.save();ctx.globalAlpha=Math.max(0,1-frame/maxF);ctx.translate(p.x,p.y);ctx.rotate(p.rot*Math.PI/180);ctx.fillStyle=p.color;
+        ctx.fillRect(-p.w/2,-p.h/2,p.w,p.h);
+        ctx.restore();
+        p.x+=p.vx;p.y+=p.vy;p.rot+=p.vrot;
+      });
+      frame++;
+      if(frame<maxF) requestAnimationFrame(draw); else ctx.clearRect(0,0,canvas.width,canvas.height);
+    }
+    draw();
+  }
+</script>
+</body>
+</html>
