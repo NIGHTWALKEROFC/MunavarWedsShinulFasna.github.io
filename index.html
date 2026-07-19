@@ -169,10 +169,15 @@
 </head>
 <body>
 
+<audio id="bg-music" loop preload="none">
+  <source src="audio/song.mp3" type="audio/mpeg">
+</audio>
+
 <canvas id="petalCanvas"></canvas>
 <canvas id="confettiCanvas"></canvas>
 
 <div class="fab-controls">
+  <button class="fab-btn" onclick="toggleMusic()" title="Toggle music" id="fab-music">🔈</button>
   <button class="fab-btn" onclick="toggleDarkMode()" title="Toggle dark mode" id="fab-dark">🌙</button>
 </div>
 
@@ -189,9 +194,9 @@
   <div class="card">
     <div class="arch-wrap">
       <svg viewBox="0 0 150 170" xmlns="http://www.w3.org/2000/svg">
-        <path d="M13 30 A62 62 0 0 1 137 30 L137 150 L13 150 Z" fill="none" stroke="var(--gold)" stroke-width="2"/>
-        <path d="M20 30 A55 55 0 0 1 130 30 L130 143 L20 143 Z" fill="none" stroke="var(--accent)" stroke-width="1" opacity="0.55"/>
-        <path d="M67 6 l3 6.5 7 .8 -5.2 4.9 1.3 7 -6.1-3.4 -6.1 3.4 1.3-7 -5.2-4.9 7-.8z" fill="var(--gold)"/>
+        <path d="M13 34 A144.3 144.3 0 0 1 137 34 L137 150 L13 150 Z" fill="none" stroke="var(--gold)" stroke-width="2"/>
+        <path d="M20 34 A132 132 0 0 1 130 34 L130 143 L20 143 Z" fill="none" stroke="var(--accent)" stroke-width="1" opacity="0.55"/>
+        <path d="M75 5 L77.26 10.74 L83 13 L77.26 15.26 L75 21 L72.74 15.26 L67 13 L72.74 10.74 Z" fill="var(--gold)"/>
         <text x="75" y="98" text-anchor="middle" dominant-baseline="central" font-family="var(--font-display)" font-weight="700" font-size="34" fill="var(--accent)">M &amp; S</text>
       </svg>
     </div>
@@ -339,7 +344,6 @@
   <span>Munavar &amp; Shinul Fasna</span><span class="footer-dot"></span><span>2 Aug 2026</span>
 </footer>
 
-<!-- Firebase (compat SDK — works with plain <script> tags, no build step needed) -->
 <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore-compat.js"></script>
 
@@ -425,6 +429,38 @@
   updateCountdown();
   showScreen('screen-loader');
   setTimeout(function(){showScreen('screen-invite');},2200);
+
+  var bgMusic = document.getElementById('bg-music');
+  var musicPlaying = false;
+  function setMusicIcon(){
+    var btn = document.getElementById('fab-music');
+    if(btn) btn.textContent = musicPlaying ? '🔊' : '🔈';
+  }
+  function toggleMusic(){
+    if(musicPlaying){
+      bgMusic.pause();
+      musicPlaying = false;
+      setMusicIcon();
+    } else {
+      var p = bgMusic.play();
+      if(p !== undefined){
+        p.then(function(){ musicPlaying = true; setMusicIcon(); })
+         .catch(function(err){ console.warn('Music play blocked:', err); });
+      } else { musicPlaying = true; setMusicIcon(); }
+    }
+  }
+
+  function startMusicOnFirstScroll(){
+    if(musicPlaying) return;
+    var p = bgMusic.play();
+    if(p !== undefined){
+      p.then(function(){ musicPlaying = true; setMusicIcon(); })
+       .catch(function(err){ console.warn('Autoplay on scroll blocked, tap the music button instead:', err); });
+    } else { musicPlaying = true; setMusicIcon(); }
+  }
+  window.addEventListener('scroll', startMusicOnFirstScroll, { once: true, passive: true });
+  window.addEventListener('touchmove', startMusicOnFirstScroll, { once: true, passive: true });
+  window.addEventListener('wheel', startMusicOnFirstScroll, { once: true, passive: true });
 
   function handleYes(){
     launchFullPagePopper();
