@@ -49,6 +49,17 @@
   .fab-btn{width:40px;height:40px;border-radius:50%;border:1px solid var(--border);background:var(--card-bg);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;color:var(--text);box-shadow:0 2px 10px rgba(0,0,0,.08);transition:transform .15s;}
   .fab-btn:hover{transform:scale(1.08);}
 
+  /* Gate (Open Invitation) */
+  #screen-gate{flex-direction:column;align-items:center;justify-content:center;background:var(--cream);padding:2rem 1rem;}
+  .gate-card{text-align:center;max-width:340px;}
+  .gate-arch{width:110px;height:125px;margin:0 auto .8rem;}
+  .gate-arch svg{width:100%;height:100%;overflow:visible;}
+  .gate-title{font-family:var(--font-display);font-weight:700;font-size:26px;margin-bottom:6px;}
+  .gate-sub{font-family:var(--font-script);font-style:italic;font-size:15px;color:var(--muted);margin-bottom:2rem;line-height:1.6;}
+  .open-btn{background:var(--accent);color:#fff;border:none;border-radius:50px;padding:16px 40px;font-size:12px;font-weight:500;letter-spacing:2.6px;text-transform:uppercase;cursor:pointer;box-shadow:0 6px 20px rgba(11,77,58,.25);}
+  .open-btn:hover{background:var(--accent-dark);}
+  .open-btn:active{transform:scale(.97);}
+
   /* Loader */
   #screen-loader{flex-direction:column;align-items:center;justify-content:center;background:var(--cream);}
   .loader-wrap{display:flex;flex-direction:column;align-items:center;gap:26px;}
@@ -177,8 +188,24 @@
 <canvas id="confettiCanvas"></canvas>
 
 <div class="fab-controls">
-  <button class="fab-btn" onclick="toggleMusic()" title="Toggle music" id="fab-music">🔈</button>
   <button class="fab-btn" onclick="toggleDarkMode()" title="Toggle dark mode" id="fab-dark">🌙</button>
+</div>
+
+<!-- GATE -->
+<div class="screen active" id="screen-gate">
+  <div class="gate-card">
+    <div class="gate-arch">
+      <svg viewBox="0 0 150 170" xmlns="http://www.w3.org/2000/svg">
+        <path d="M13 34 A144.3 144.3 0 0 1 137 34 L137 150 L13 150 Z" fill="none" stroke="var(--gold)" stroke-width="2"/>
+        <path d="M20 34 A132 132 0 0 1 130 34 L130 143 L20 143 Z" fill="none" stroke="var(--accent)" stroke-width="1" opacity="0.55"/>
+        <path d="M75 5 L77.26 10.74 L83 13 L77.26 15.26 L75 21 L72.74 15.26 L67 13 L72.74 10.74 Z" fill="var(--gold)"/>
+        <text x="75" y="98" text-anchor="middle" dominant-baseline="central" font-family="var(--font-display)" font-weight="700" font-size="34" fill="var(--accent)">M &amp; S</text>
+      </svg>
+    </div>
+    <p class="gate-title">Munavar &amp; Shinul Fasna</p>
+    <p class="gate-sub">You're invited to our Walima<br>2nd August 2026</p>
+    <button class="open-btn" onclick="openInvitation()">Open Invitation</button>
+  </div>
 </div>
 
 <!-- LOADER -->
@@ -344,11 +371,12 @@
   <span>Munavar &amp; Shinul Fasna</span><span class="footer-dot"></span><span>2 Aug 2026</span>
 </footer>
 
+<!-- Firebase (compat SDK — works with plain <script> tags, no build step needed) -->
 <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore-compat.js"></script>
 
 <script>
-  const firebaseConfig = {
+const firebaseConfig = {
   apiKey: "AIzaSyDY60mSv942_wKzCNrDgNR9z6A0lT1fPJM",
   authDomain: "munavar-shinul-wedding.firebaseapp.com",
   projectId: "munavar-shinul-wedding",
@@ -427,40 +455,15 @@
   populateInvite();
   setInterval(updateCountdown,1000);
   updateCountdown();
-  showScreen('screen-loader');
-  setTimeout(function(){showScreen('screen-invite');},2200);
 
   var bgMusic = document.getElementById('bg-music');
-  var musicPlaying = false;
-  function setMusicIcon(){
-    var btn = document.getElementById('fab-music');
-    if(btn) btn.textContent = musicPlaying ? '🔊' : '🔈';
-  }
-  function toggleMusic(){
-    if(musicPlaying){
-      bgMusic.pause();
-      musicPlaying = false;
-      setMusicIcon();
-    } else {
-      var p = bgMusic.play();
-      if(p !== undefined){
-        p.then(function(){ musicPlaying = true; setMusicIcon(); })
-         .catch(function(err){ console.warn('Music play blocked:', err); });
-      } else { musicPlaying = true; setMusicIcon(); }
-    }
+  function openInvitation(){
+    var p = bgMusic.play();
+    if(p !== undefined){ p.catch(function(err){ console.warn('Music could not start:', err); }); }
+    showScreen('screen-loader');
+    setTimeout(function(){showScreen('screen-invite');},2200);
   }
 
-  function startMusicOnFirstScroll(){
-    if(musicPlaying) return;
-    var p = bgMusic.play();
-    if(p !== undefined){
-      p.then(function(){ musicPlaying = true; setMusicIcon(); })
-       .catch(function(err){ console.warn('Autoplay on scroll blocked, tap the music button instead:', err); });
-    } else { musicPlaying = true; setMusicIcon(); }
-  }
-  window.addEventListener('scroll', startMusicOnFirstScroll, { once: true, passive: true });
-  window.addEventListener('touchmove', startMusicOnFirstScroll, { once: true, passive: true });
-  window.addEventListener('wheel', startMusicOnFirstScroll, { once: true, passive: true });
 
   function handleYes(){
     launchFullPagePopper();
